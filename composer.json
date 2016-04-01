@@ -1,0 +1,47 @@
+{
+  "name": "sfynx-project/tool-circuitbreaker-bundle",
+  "type": "symfony-bundle",
+  "description": "This Bundle provides handlers to rapidly develop with the circuit breaker pattern in microservice architecture",
+  "keywords": ["circuit", "breaker", "microservice", "pattern"],
+  "homepage": "http://pigroupe.github.io/cmf-sfynx/",
+  "license": "GNU",
+
+  "authors": [
+    {
+      "name": "laurent de-nil",
+      "email": "laurent.denil@gmail.fr"
+    },
+    {
+      "name": "Sfynx Community",
+      "homepage": "https://github.com/pigroupe/SfynxCircuitBreakerBundle/contributors"
+    }
+  ],
+
+  "require": {
+    "symfony/framework-bundle": "~2.3|~3.0",
+    "sfynx-project/tool-cache-bundle": "~2.8"
+  },
+
+  "require-dev": {
+    "symfony/phpunit-bridge": "~2.7|~3.0",
+    "phpunit/phpunit": "*"
+  },
+
+  "suggest": {
+  },
+
+  "conflict": {
+  },
+
+  "autoload": {
+    "psr-0": { "Sfynx\\CircuitBreakerBundle": "" }
+  },
+
+  "target-dir": "Sfynx/CircuitBreakerBundle",
+
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.8-dev"
+    }
+  }
+}

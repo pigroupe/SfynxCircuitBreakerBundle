@@ -1,0 +1,15 @@
+parameters:
+    sfynx.circuitbreaker.class: Sfynx\CircuitBreakerBundle\CircuitBreaker\CircuitBreaker
+    sfynx.circuitbreaker.storage.class: Sfynx\CircuitBreakerBundle\Storage\JsonStorage
+
+services:
+    sfynx.circuitbreaker:
+        class: %sfynx.circuitbreaker.class%
+        arguments:
+          - "@sfynx.circuitbreaker.storage"
+
+    sfynx.circuitbreaker.storage:
+        class: %sfynx.circuitbreaker.storage.class%
+        arguments:
+          - "@sfynx.cache.filecache"
+
