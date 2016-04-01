@@ -1,7 +1,7 @@
-﻿Specification SFYNX Bundles
+﻿Circuit Breaker SFYNX Bundles
 =====================
 
-Specification Bundle provides handlers to rapidly develop with the specification pattern in DDD applicative architecture.
+Circuit Breaker Bundle provides handlers to rapidly develop with the Circuit Breaker pattern in micorservice architecture.
 This is to simplify the work of developers with DDD pattern, and enable to follow the SOLID principles in the POO development.
 
 Documentation
@@ -10,9 +10,9 @@ Documentation
 The source of the documentation is stored in the `Resources/doc/` folder
 in this bundle, and available on symfony.com:
 
-* [Read the Documentation for master](https://github.com/pigroupe/SfynxSpecificationBundle/blob/master/Resources/doc/index.rst)
+* [Read the Documentation for master](https://github.com/pigroupe/SfynxCircuitBreakerBundle/blob/master/Resources/doc/index.rst)
 
-* [Read the Documentation for 2.8.x](https://github.com/pigroupe/SfynxSpecificationBundle/blob/2.8/Resources/doc/index.rst)
+* [Read the Documentation for 2.8.x](https://github.com/pigroupe/SfynxCircuitBreakerBundle/blob/2.8/Resources/doc/index.rst)
 
 Installation
 ------------
@@ -22,7 +22,7 @@ All the installation instructions are located in the documentation.
 Reporting an issue or a feature request
 ---------------------------------------
 
-Issues and feature requests are tracked in the [Github issue tracker](https://github.com/pigroupe/SfynxSpecificationBundle/issues).
+Issues and feature requests are tracked in the [Github issue tracker](https://github.com/pigroupe/SfynxCircuitBreakerBundle/issues).
 
 When reporting a bug, it may be a good idea to reproduce it in a basic project
 built using the [Symfony Standard Edition](https://github.com/symfony/symfony-standard)
@@ -33,7 +33,7 @@ License
 -------
 
 **Copyright © 20012-2014, contact@pi-groupe.fr.**
-**This bundle is under the [GNU General Public License](https://github.com/pigroupe/SfynxSpecificationBundle/blob/master/LICENSE), permitting combination and redistribution with software that uses the MIT License**
+**This bundle is under the [GNU General Public License](https://github.com/pigroupe/SfynxCircuitBreakerBundle/blob/master/LICENSE), permitting combination and redistribution with software that uses the MIT License**
 
 SFYNX is a free software distributed under the GPL license. This license guarantees the following freedoms:
 
