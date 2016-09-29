@@ -4,7 +4,7 @@
   "description": "This Bundle provides handlers to rapidly develop with the circuit breaker pattern in microservice architecture",
   "keywords": ["circuit", "breaker", "microservice", "pattern"],
   "homepage": "http://pigroupe.github.io/cmf-sfynx/",
-  "license": "GNU",
+  "license": "LGPL-3.0+",
 
   "authors": [
     {
