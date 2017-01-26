@@ -12,6 +12,7 @@
  */
 namespace Sfynx\CircuitBreakerBundle\CircuitBreaker;
 
+use Sfynx\CircuitBreakerBundle\Exception\UnavailableServiceException;
 use Sfynx\CircuitBreakerBundle\Generalisation\CircuitBreakerStorageInterface;
 use Sfynx\CircuitBreakerBundle\Generalisation\CircuitBreakerInterface;
 
@@ -61,6 +62,7 @@ class CircuitBreaker implements CircuitBreakerInterface
      * @access public
      * @param array $serviceConfigArray Array from config.yml with key : sfynx_circuit_breaker.services
      * @return void
+     * @throws \Exception
      */
     public function loadConfig(array $serviceConfigArray)
     {
@@ -151,6 +153,17 @@ class CircuitBreaker implements CircuitBreakerInterface
 
         //lastTry + resetTime is not past
         return false;
+    }
+
+    /**
+     * @param $serviceName
+     * @throws UnavailableServiceException
+     */
+    public function checkAvailable($serviceName)
+    {
+        if (!$this->isAvailable($serviceName)) {
+            throw UnavailableServiceException::unvailableService($serviceName);
+        }
     }
 
     /**
