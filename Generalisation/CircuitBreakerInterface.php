@@ -13,6 +13,9 @@
  */
 namespace Sfynx\CircuitBreakerBundle\Generalisation;
 
+use Sfynx\CircuitBreakerBundle\Exception\UnavailableServiceException;
+use Sfynx\CircuitBreakerBundle\CircuitBreaker\ServiceConfiguration;
+
 /**
  * Interface CircuitBreakerInterface
  *
@@ -30,6 +33,23 @@ interface CircuitBreakerInterface
      * @return boolean true if service is available, false if service is down
      */
     public function isAvailable($serviceName);
+
+    /**
+     * @param $serviceName
+     * @throws UnavailableServiceException
+     */
+    public function checkAvailable($serviceName);
+
+    /**
+     * This method allow to register service in code
+     *
+     * @access public
+     * @param string $serviceName
+     * @param ServiceConfiguration $configuration
+     * @return void
+     * @throws \Exception
+     */
+    public function registerService($serviceName, ServiceConfiguration $configuration);
 
     /**
      * This method must be called if the http call fails
