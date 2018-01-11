@@ -13,7 +13,7 @@
 namespace Sfynx\CircuitBreakerBundle\Storage;
 
 use Sfynx\CircuitBreakerBundle\Generalisation\CircuitBreakerStorageInterface;
-use Sfynx\CacheBundle\Builder\CacheInterface;
+use Sfynx\CacheBundle\Manager\Generalisation\CacheInterface;
 
 /**
  * class JsonStorage
