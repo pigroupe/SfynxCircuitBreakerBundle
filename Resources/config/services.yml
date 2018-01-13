@@ -4,12 +4,14 @@ parameters:
 
 services:
     sfynx.circuitbreaker:
-        class: %sfynx.circuitbreaker.class%
+        class: '%sfynx.circuitbreaker.class%'
+        public: true
         arguments:
           - "@sfynx.circuitbreaker.storage"
 
     sfynx.circuitbreaker.storage:
-        class: %sfynx.circuitbreaker.storage.class%
+        class: '%sfynx.circuitbreaker.storage.class%'
+        public: true
         arguments:
           - "@sfynx.cache.filecache"
 
