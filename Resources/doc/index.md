@@ -15,7 +15,7 @@ by the circuit breaker, and it should abandon retry attempts if the circuit brea
 
 The following documents are available:
 
-- [Configuration reference](Resources/doc/configuration_reference.md)
+- [Configuration reference](configuration_reference.md)
 - [ChangeLog](#changelog)
 - [Todo](#todo)
 
