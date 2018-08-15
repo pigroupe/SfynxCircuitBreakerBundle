@@ -32,13 +32,13 @@ interface CircuitBreakerInterface
      * @param string $serviceName
      * @return boolean true if service is available, false if service is down
      */
-    public function isAvailable($serviceName);
+    public function isAvailable(string $serviceName);
 
     /**
-     * @param $serviceName
+     * @param string $serviceName
      * @throws UnavailableServiceException
      */
-    public function checkAvailable($serviceName);
+    public function checkAvailable(string $serviceName);
 
     /**
      * This method allow to register service in code
@@ -49,7 +49,7 @@ interface CircuitBreakerInterface
      * @return void
      * @throws \Exception
      */
-    public function registerService($serviceName, ServiceConfiguration $configuration);
+    public function registerService(string $serviceName, ServiceConfiguration $configuration);
 
     /**
      * This method must be called if the http call fails
@@ -61,7 +61,7 @@ interface CircuitBreakerInterface
      * @param string $serviceName
      * @return void
      */
-    public function reportFailure($serviceName);
+    public function reportFailure(string $serviceName);
 
     /**
      * This method must be called if the http call succeeds
@@ -73,5 +73,5 @@ interface CircuitBreakerInterface
      * @param string $serviceName
      * @return void
      */
-    public function reportSuccess($serviceName);
+    public function reportSuccess(string $serviceName);
 }

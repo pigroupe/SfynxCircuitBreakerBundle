@@ -27,7 +27,7 @@ class UnavailableServiceException extends Exception
      * @param int $errorNum
      * @param Exception|null $previous
      */
-    public function __construct($message = '', $errorNum = 500, Exception $previous = null)
+    public function __construct(string $message = '', int $errorNum = 500, Exception $previous = null)
     {
         parent::__construct($message, $errorNum, $previous);
     }
@@ -38,7 +38,7 @@ class UnavailableServiceException extends Exception
      * @param string $serviceName
      * @return UnavailableServiceException
      */
-    public static function unvailableService($serviceName)
+    public static function unvailableService(string $serviceName)
     {
         return new static(sprintf('The service %s is unavailable', $serviceName), 503);
     }
@@ -49,7 +49,7 @@ class UnavailableServiceException extends Exception
      * @param string $serviceName
      * @return UnavailableServiceException
      */
-    public static function serviceCallFailure($serviceName)
+    public static function serviceCallFailure(string $serviceName)
     {
         return new static(sprintf('The call for service %s has failed', $serviceName), 503);
     }

@@ -89,7 +89,7 @@ class JsonStorage implements CircuitBreakerStorageInterface
      * @return void
      * @throws \Exception
      */
-    public function loadConfig($cacheDir)
+    public function loadConfig(string $cacheDir)
     {
         $this->cacheDir = $cacheDir;
         $this->client = $this->factory->getClient();

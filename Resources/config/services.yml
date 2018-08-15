@@ -3,15 +3,15 @@ parameters:
     sfynx.circuitbreaker.storage.class: Sfynx\CircuitBreakerBundle\Storage\JsonStorage
 
 services:
-    sfynx.circuitbreaker:
-        class: '%sfynx.circuitbreaker.class%'
-        public: true
-        arguments:
-          - "@sfynx.circuitbreaker.storage"
-
     sfynx.circuitbreaker.storage:
         class: '%sfynx.circuitbreaker.storage.class%'
         public: true
         arguments:
           - "@sfynx.cache.filecache"
+
+    sfynx.circuitbreaker:
+        class: '%sfynx.circuitbreaker.class%'
+        public: true
+        arguments:
+          - "@sfynx.circuitbreaker.storage"
 
