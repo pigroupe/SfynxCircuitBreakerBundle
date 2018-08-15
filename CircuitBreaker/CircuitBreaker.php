@@ -57,6 +57,46 @@ class CircuitBreaker implements CircuitBreakerInterface
     }
 
     /**
+     * Getter of $storage
+     *
+     * @return CircuitBreakerStorageInterface
+     */
+    public function getStorage()
+    {
+        return $this->storage;
+    }
+
+    /**
+     * Return the ServiceStatus object of a given service
+     *
+     * @access public
+     * @param string $serviceName
+     * @return ServiceStatus
+     * @throws \Exception
+     */
+    public function getStatus(string $serviceName)
+    {
+        $this->checkServiceName($serviceName);
+
+        return $this->serviceStatusArray[$serviceName];
+    }
+
+    /**
+     * Return the ServiceConfiguration object of a given service
+     *
+     * @access public
+     * @param string $serviceName
+     * @return ServiceConfiguration
+     * @throws \Exception
+     */
+    public function getConfig(string $serviceName)
+    {
+        $this->checkServiceName($serviceName);
+
+        return $this->serviceConfigArray[$serviceName];
+    }
+
+    /**
      * This method is called in the bundle extension to load configuration from config.yml
      *
      * @access public
@@ -79,57 +119,9 @@ class CircuitBreaker implements CircuitBreakerInterface
     }
 
     /**
-     * This method allow to register service in code
-     *
-     * @access public
-     * @param string $serviceName
-     * @param ServiceConfiguration $configuration
-     * @return void
-     * @throws \Exception
-     */
-    public function registerService($serviceName, ServiceConfiguration $configuration)
-    {
-        if (!empty($this->serviceConfigArray[$serviceName])) {
-            throw new \Exception('service already exists');
-        }
-        $this->setStatus($serviceName, new ServiceStatus());
-        $this->setConfig($serviceName, $configuration);
-    }
-
-    /**
-     * Return the ServiceStatus object of a given service
-     *
-     * @access public
-     * @param string $serviceName
-     * @return ServiceStatus
-     * @throws \Exception
-     */
-    public function getStatus($serviceName)
-    {
-        $this->checkServiceName($serviceName);
-
-        return $this->serviceStatusArray[$serviceName];
-    }
-
-    /**
-     * Return the ServiceConfiguration object of a given service
-     *
-     * @access public
-     * @param string $serviceName
-     * @return ServiceConfiguration
-     * @throws \Exception
-     */
-    public function getConfig($serviceName)
-    {
-        $this->checkServiceName($serviceName);
-
-        return $this->serviceConfigArray[$serviceName];
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function isAvailable($serviceName)
+    public function isAvailable(string $serviceName)
     {
         //first, load from cache
         $statusFromCache = $this->storage->loadStatus($serviceName);
@@ -144,7 +136,7 @@ class CircuitBreaker implements CircuitBreakerInterface
         }
 
         //here we are at maxFailure
-        if ($status->getLastTry() + $this->getConfig($serviceName)->getResetTime() < time()) {//lastTry + resetTime is past
+        if ($status->getLastTry() + $this->getConfig($serviceName)->getResetTime() < \time()) {//lastTry + resetTime is past
             $status->setLastTry(time());//we update time to now
             $this->storage->saveStatus($serviceName, $status->toArray());//save in cache
             return true;
@@ -155,10 +147,9 @@ class CircuitBreaker implements CircuitBreakerInterface
     }
 
     /**
-     * @param $serviceName
-     * @throws UnavailableServiceException
+     * {@inheritdoc}
      */
-    public function checkAvailable($serviceName)
+    public function checkAvailable(string $serviceName)
     {
         if (!$this->isAvailable($serviceName)) {
             throw UnavailableServiceException::unvailableService($serviceName);
@@ -168,7 +159,19 @@ class CircuitBreaker implements CircuitBreakerInterface
     /**
      * {@inheritdoc}
      */
-    public function reportFailure($serviceName)
+    public function registerService(string $serviceName, ServiceConfiguration $configuration)
+    {
+        if (!empty($this->serviceConfigArray[$serviceName])) {
+            throw new \Exception('service already exists');
+        }
+        $this->setStatus($serviceName, new ServiceStatus());
+        $this->setConfig($serviceName, $configuration);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reportFailure(string $serviceName)
     {
         $this->checkServiceName($serviceName);
         $max = $this->getConfig($serviceName)->getMaxFailure();
@@ -178,20 +181,10 @@ class CircuitBreaker implements CircuitBreakerInterface
     /**
      * {@inheritdoc}
      */
-    public function reportSuccess($serviceName)
+    public function reportSuccess(string $serviceName)
     {
         $this->checkServiceName($serviceName);
         $this->storage->saveStatus($serviceName, $this->getStatus($serviceName)->subCount()->toArray());
-    }
-
-    /**
-     * Getter of $storage
-     *
-     * @return CircuitBreakerStorageInterface
-     */
-    public function getStorage()
-    {
-        return $this->storage;
     }
 
     /**
@@ -230,7 +223,9 @@ class CircuitBreaker implements CircuitBreakerInterface
      */
     protected function checkServiceName($serviceName)
     {
-        if (!array_key_exists($serviceName, $this->serviceConfigArray) || !array_key_exists($serviceName, $this->serviceStatusArray)) {
+        if (!\array_key_exists($serviceName, $this->serviceConfigArray)
+            || !\array_key_exists($serviceName, $this->serviceStatusArray)
+        ) {
             throw new \Exception('The service name doesn\'t exist');
         }
     }
