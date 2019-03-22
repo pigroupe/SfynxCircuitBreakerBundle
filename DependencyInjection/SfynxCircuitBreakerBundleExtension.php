@@ -9,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Sfynx\CircuitBreakerBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -46,12 +47,15 @@ class SfynxCircuitBreakerBundleExtension extends Extension
         $definition->addMethodCall('loadConfig', [$config['cache_dir']]);
 
         //Optionnal overriding mechanism on default cache client (filecache) through application configuration
-        if(isset($config['cache_client_provider']) && !is_null($config['cache_client_provider']) && !empty($config['cache_client_provider']))
-        {
+        if (isset($config['cache_client_provider'])
+          && !is_null($config['cache_client_provider'])
+          && !empty($config['cache_client_provider'])
+        ) {
             // replaces first argument which stands for cache client provider
             $definition->replaceArgument(0, new Reference($config['cache_client_provider']));
         }
     }
+
     /**
      * @return string
      */
