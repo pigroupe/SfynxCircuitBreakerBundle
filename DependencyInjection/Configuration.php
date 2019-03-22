@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
 
         $this->addCacheDir($rootNode);
         $this->addServiceConfig($rootNode);
+        $this->addCacheClientProviderConfig($rootNode);
 
         return $treeBuilder;
     }
@@ -43,28 +44,30 @@ class Configuration implements ConfigurationInterface
      * the value must finish with "/"
      *
      * @access private
-     * @param ArrayNodeDefinition $node
+     * @param ArrayNodeDefinition $rootNode
      * @return void
      */
-    private function addCacheDir(ArrayNodeDefinition $node)
+    private function addCacheDir(ArrayNodeDefinition $rootNode)
     {
-        $node
+        $rootNode
             ->children()
-            ->scalarNode('cache_dir')->isRequired()
+                ->scalarNode('cache_dir')->isRequired()
             ->end()
         ;
+
+        return $rootNode;
     }
 
     /**
      * service configuration definitions
      *
      * @access private
-     * @param ArrayNodeDefinition $node
+     * @param ArrayNodeDefinition $rootNode
      * @return void
      */
-    private function addServiceConfig(ArrayNodeDefinition $node)
+    private function addServiceConfig(ArrayNodeDefinition $rootNode)
     {
-        $node
+        $rootNode
             ->children()
                 ->arrayNode('service_names')
                     ->useAttributeAsKey('name')
@@ -77,5 +80,25 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+
+        return $rootNode;
+    }
+
+    /**
+     * Cache client provider used with cache provider
+     *
+     * @access private
+     * @param ArrayNodeDefinition $rootNode
+     * @return void
+     */
+    private function addCacheClientProviderConfig(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+          ->children()
+            ->scalarNode('cache_client_provider')->defaultValue('sfynx.cache.filecache')->end()
+          ->end()
+        ;
+
+        return $rootNode;
     }
 }
