@@ -7,7 +7,8 @@ All available configuration options are listed below with their default values.
 # SfynxCircuitBreakerBundle configuration
 #       
 sfynx_circuit_breaker:
-    cache_dir: "/tmp/"  # must finish with "/"
+#    cache_dir: "/tmp/"  # must finish with "/"
+    cache_client_provider: 'sfynx.cache.rediscache'
     service_names:
         currency:
             max_failure: 5
