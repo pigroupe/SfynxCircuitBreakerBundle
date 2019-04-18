@@ -1,3 +1,4 @@
+export PROJECT_NAME ?="Circuit breaker"
 export RELEASE_FILES ?="Resources/doc/index.md"
 export RELEASE_REMOTE ?=origin
 export RELEASE_VERSION=$(shell echo ${CURRENT_TAG}|sed -r s/v//)
