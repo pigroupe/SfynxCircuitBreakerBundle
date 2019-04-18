@@ -93,8 +93,8 @@ class JsonStorage implements CircuitBreakerStorageInterface
     {
         $this->cacheDir = $cacheDir;
         $this->client = $this->factory->getClient();
-        if(!$this->client->setPath($this->cacheDir)) {
-            throw new \Exception('SfynxCache, invalid cache directory');
+        if(method_exists($this->client,'setPath')){
+            $this->client->setPath($this->cacheDir);
         }
     }
 }

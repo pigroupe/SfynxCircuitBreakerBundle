@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -43,8 +44,16 @@ class SfynxCircuitBreakerBundleExtension extends Extension
         //load config for cache_dir
         $definition = $container->getDefinition('sfynx.circuitbreaker.storage');
         $definition->addMethodCall('loadConfig', [$config['cache_dir']]);
-    }
 
+        //Optionnal overriding mechanism on default cache client (filecache) through application configuration
+        if(
+          !is_null($config['cache_client_provider'])
+          && !empty($config['cache_client_provider']))
+        {
+            // replaces first argument which stands for cache client provider
+            $definition->replaceArgument(0, new Reference($config['cache_client_provider']));
+        }
+    }
     /**
      * @return string
      */
